@@ -23,8 +23,8 @@ module.exports.loop = function() {
         console.log('Spawning new upgrader: ' + newName);
     }
 
-    if (builders.length < 2 && Game.spawns.SpawnAlpha.room.energyAvailable > 200) {
-        let newName = Game.spawns['SpawnAlpha'].createCreep([WORK, WORK, CARRY, MOVE], undefined, {role: 'builder'});
+    if (builders.length < 3 && Game.spawns.SpawnAlpha.room.energyAvailable > 350) {
+        let newName = Game.spawns['SpawnAlpha'].createCreep([WORK, WORK, CARRY, CARRY, MOVE, MOVE], undefined, {role: 'builder'});
         console.log('Spawning new builder: ' + newName);
     }
 
