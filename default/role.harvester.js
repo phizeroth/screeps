@@ -1,5 +1,5 @@
 var roleHarvester = {
-    
+
     /**@param {Creep} creep **/
     run: function(creep) {
         if (creep.carry.energy < creep.carryCapacity) {
@@ -8,6 +8,17 @@ var roleHarvester = {
                 creep.moveTo(sources[1]);
             }
         } else {
+            // repair on the go
+            var repairTargets = creep.pos.findInRange(FIND_STRUCTURES, 1, {
+                filter: function(object) {
+                    return object.hits < object.hitsMax
+                        && object.hitsMax - object.hits > REPAIR_POWER;
+                }
+            });
+            repairTargets.sort((a,b) => a.hits - b.hits);
+            if (repairTargets.length > 0) creep. repair(repairTargets[0]);
+
+            // find energy stores
             let targets = creep.room.find(FIND_STRUCTURES, {
                 filter: (structure) => {
                     return (structure.structureType == STRUCTURE_EXTENSION || structure.structureType == STRUCTURE_SPAWN) &&
