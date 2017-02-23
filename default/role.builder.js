@@ -3,6 +3,15 @@ var roleBuilder = {
     /** @param {Creep} creep **/
     run: function(creep) {
 
+        var repairTargets = creep.pos.findInRange(FIND_STRUCTURES, 1, {
+            filter: function(object) {
+                return object.hits < object.hitsMax
+                    && object.hitsMax - object.hits > REPAIR_POWER;
+            }
+        });
+        repairTargets.sort((a,b) => a.hits - b.hits);
+        if (repairTargets.length > 0) creep. repair(repairTargets[0]);
+
 	    if(creep.memory.building && creep.carry.energy == 0) {
             creep.memory.building = false;
             creep.say('harvesting');
