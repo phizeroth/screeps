@@ -3,6 +3,15 @@ var roleUpgrader = {
     /** @param {Creep} creep **/
     run: function(creep) {
 
+        var repairTargets = creep.pos.findInRange(FIND_STRUCTURES, 1, {
+            filter: function(object) {
+                return object.hits < object.hitsMax
+                    && object.hitsMax - object.hits > REPAIR_POWER;
+            }
+        });
+        repairTargets.sort((a,b) => a.hits - b.hits);
+        if (repairTargets.length > 0) creep.repair(repairTargets[0]);
+
         if (creep.memory.upgrading && creep.carry.energy == 0) {
             creep.memory.upgrading = false;
             creep.say('collecting');
@@ -32,7 +41,7 @@ var roleUpgrader = {
                             }
                         }
                     }
-        } 
+        }
         else {
             let sources = creep.room.find(FIND_SOURCES_ACTIVE);
             if (creep.harvest(sources[0]) == ERR_NOT_IN_RANGE) {

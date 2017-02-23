@@ -10,7 +10,7 @@ var roleBuilder = {
             }
         });
         repairTargets.sort((a,b) => a.hits - b.hits);
-        if (repairTargets.length > 0) creep. repair(repairTargets[0]);
+        if (repairTargets.length > 0) creep.repair(repairTargets[0]);
 
 	    if(creep.memory.building && creep.carry.energy == 0) {
             creep.memory.building = false;
